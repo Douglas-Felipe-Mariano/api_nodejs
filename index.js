@@ -10,6 +10,6 @@ app.listen(porta ,() => {
     console.log("Servidor Iniciado Na Porta " + porta);
 });
 
-app.get("/", (request, response) =>{ // request -> Vai para o front-end | Response -> Vai para o front-end
+app.get("/", (request, response) =>{ // request -> vem para o front-end | Response -> Vai para o front-end
     response.send("Hellow World");
 });
