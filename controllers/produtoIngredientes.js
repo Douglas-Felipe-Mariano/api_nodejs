@@ -2,12 +2,11 @@ const { json } = require('express');
 const db = require('../database/connection'); 
 
 module.exports = {
-    async listarProdutos(request, response) {
+    async listarProdutoIngredientes(request, response) {
         try {
-            // throw new Error('Eu causei o erro!');
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Lista de produtos.', 
+                mensagem: 'Lista de ProdutoIngredientes.', 
                 dados: null
             });
         } catch (error) {
@@ -18,11 +17,11 @@ module.exports = {
             });
         }
     }, 
-    async cadastrarProdutos(request, response) {
+    async cadastrarProdutoIngredientes(request, response) {
         try {
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Cadastro de produtos.', 
+                mensagem: 'Cadastro de ProdutoIngredientes.', 
                 dados: null
             });
         } catch (error) {
@@ -33,11 +32,11 @@ module.exports = {
             });
         }
     }, 
-    async editarProdutos(request, response) {
+    async editarProdutoIngredientes(request, response) {
         try {
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Editar produtos.', 
+                mensagem: 'Editar ProdutoIngredientes.', 
                 dados: null
             });
         } catch (error) {
@@ -48,11 +47,11 @@ module.exports = {
             });
         }
     }, 
-    async apagarProdutos(request, response) {
+    async apagarProdutoIngredientes(request, response) {
         try {
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Apagar produtos.', 
+                mensagem: 'Apagar ProdutoIngredientes.', 
                 dados: null
             });
         } catch (error) {
