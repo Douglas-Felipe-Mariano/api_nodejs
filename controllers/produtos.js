@@ -32,9 +32,16 @@ module.exports = {
     }, 
     async cadastrarProdutos(request, response) {
         try {
+            
+            const {prd_id, prd_nome, prd_valor, prd_unidade, prd_disponivel, prd_img, prd_img_destaque, prd_descricao} = request.body;
+
+            const sql = `INSERT INTO produtos
+            (prd_nome, prd_valor, prd_unidade, prd_disponivel, prd_img, prd_destaque,  prd_descricao, ptp_id, prd_img_destaque)
+            VALUES(?,?,?,?,?,?,?,?,?)`
+
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Cadastro de produtos.', 
+                mensagem: 'Produto cadastrado com sucesso.', 
                 dados: null
             });
         } catch (error) {
