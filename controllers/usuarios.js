@@ -75,7 +75,7 @@ module.exports = {
             return response.status(200).json({
                 sucesso: true,
                 mensagem: `Usuário ${usu_id} atualizado com sucesso!`,
-                dados: atualizaDados[0].affectedRows
+                dados: atualizaDados[0]
                 // mensSql: atualizaDados
             });
         } catch (error) {

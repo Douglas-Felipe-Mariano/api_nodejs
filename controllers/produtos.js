@@ -33,16 +33,22 @@ module.exports = {
     async cadastrarProdutos(request, response) {
         try {
             
-            const {prd_id, prd_nome, prd_valor, prd_unidade, prd_disponivel, prd_img, prd_img_destaque, prd_descricao} = request.body;
+            const {prd_nome, prd_valor, prd_unidade, ptp_id ,prd_disponivel, prd_img, prd_destaque, prd_img_destaque, prd_descricao} = request.body;
 
             const sql = `INSERT INTO produtos
-            (prd_nome, prd_valor, prd_unidade, prd_disponivel, prd_img, prd_destaque,  prd_descricao, ptp_id, prd_img_destaque)
+            (prd_nome, prd_valor, prd_unidade, ptp_id ,prd_disponivel, prd_img, prd_destaque, prd_descricao, prd_img_destaque)
             VALUES(?,?,?,?,?,?,?,?,?)`
+
+            const values = [prd_nome, prd_valor, prd_unidade, ptp_id ,prd_disponivel, prd_img, prd_destaque, prd_img_destaque, prd_descricao];
+
+            const execSql= await db.query(sql, values)
+
+            const prd_id = execSql[0].insertId;
 
             return response.status(200).json({
                 sucesso: true, 
                 mensagem: 'Produto cadastrado com sucesso.', 
-                dados: null
+                dados: prd_id
             });
         } catch (error) {
             return response.status(500).json({
@@ -53,11 +59,23 @@ module.exports = {
         }
     }, 
     async editarProdutos(request, response) {
+
+        const {prd_nome, prd_valor, prd_unidade, ptp_id ,prd_disponivel, prd_img, prd_destaque, prd_img_destaque, prd_descricao} = request.body;
+
+        const {prd_id} = request.params;
+
+        const sql = `UPDATE produtos SET prd_nome=?, prd_valor=?, prd_unidade=?, ptp_id=?, prd_disponivel=?,
+        prd_destaque=?, prd_img_destaque=?, prd_descricao=? Where prd_id=?;`
+
+        const values = [prd_nome, prd_valor, prd_unidade, ptp_id ,prd_disponivel, prd_img, prd_destaque, prd_img_destaque, prd_descricao]
+
+        const atualizadados = await db.query(sql, values);
+
         try {
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Editar produtos.', 
-                dados: null
+                mensagem: `O Produto ${prd_id} foi alterado com sucesso.`, 
+                dados: atualizadados[0].affectedRows
             });
         } catch (error) {
             return response.status(500).json({
@@ -67,12 +85,22 @@ module.exports = {
             });
         }
     }, 
+
     async apagarProdutos(request, response) {
+
+        const {prd_id} = request.params;
+
+        const sql =  `DELETE FROM produtos WHERE prd_id=?`
+
+        const values = [prd_id]
+
+        const excluir = await db.query(sql, values);
+
         try {
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Apagar produtos.', 
-                dados: null
+                mensagem: `Produtos ${prd_id} excluido com sucesso.`, 
+                dados: excluir[0].affectedRows
             });
         } catch (error) {
             return response.status(500).json({
